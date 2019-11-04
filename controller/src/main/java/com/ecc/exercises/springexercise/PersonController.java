@@ -28,7 +28,7 @@ public class PersonController {
 
 	@GetMapping(value = "/persons")
 	public String listPersons(Model model) {
-    	model.addAttribute("roles", personService.getPersonsAsList());
+    	model.addAttribute("persons", personService.getPersonsAsList());
     	return "persons/persons-list";
 	}
 
