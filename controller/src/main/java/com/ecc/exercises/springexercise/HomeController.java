@@ -15,15 +15,11 @@ import java.util.Arrays;
 public class HomeController {
    
    @Value("${app.name}")
-   String message;
-   List<String> tasks = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
-   // @GetMapping(value = "/")
-   // public String home() {
-   //    return "home";
-   // }
+   String appName;
 
    @GetMapping(value = "/")
    public String home(Model model) {
+    	model.addAttribute(appName);
     	return "home";
    }
 }

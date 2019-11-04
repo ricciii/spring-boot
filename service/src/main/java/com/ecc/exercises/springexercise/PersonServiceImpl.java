@@ -7,7 +7,7 @@ import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ecc.exercises.springexercise.model.Role;
+import com.ecc.exercises.springexercise.model.Person;
 import com.ecc.exercises.springexercise.util.HibernateUtil;
 
 import java.util.List;
@@ -23,18 +23,18 @@ import java.util.InputMismatchException;
 import java.lang.IllegalArgumentException;
 
 @Service
-public class RoleServiceImpl implements RoleService {
+public class PersonServiceImpl implements PersonService {
 
 	HibernateUtil hibernateUtil;
 	Session session;
 	Transaction transaction;
 
 	@Autowired
-	public RoleServiceImpl(HibernateUtil hibernateUtil) {
+	public PersonServiceImpl(HibernateUtil hibernateUtil) {
 		this.hibernateUtil = hibernateUtil;
 	}
 
-	public boolean createRole(Object object) {
+	public boolean createPerson(Object object) {
 		session = hibernateUtil.getSessionFactory().openSession();
 		boolean created = false;
 		try {
@@ -53,70 +53,32 @@ public class RoleServiceImpl implements RoleService {
     	return created;
 	}
 
-	public boolean updateRole(Object object) {
-		session = hibernateUtil.getSessionFactory().openSession();
-		boolean updated = false;
-		try {
-			transaction = session.beginTransaction();
-			session.update(object); 
-			transaction.commit();
-			updated = true;
-		} catch (HibernateException e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			} 
-			e.printStackTrace();
-		} finally {
-			session.close(); 
-		}
-    	return updated;
-	}
-
-	public boolean deleteRole(Object object) {
-		session = hibernateUtil.getSessionFactory().openSession();
-		boolean deleted = false;
-		try {
-			transaction = session.beginTransaction();
-			session.delete(object); 
-			transaction.commit();
-			deleted = true;
-		} catch (HibernateException e) {
-			if (transaction!=null) {
-				transaction.rollback();
-			} 
-			e.printStackTrace();
-		} finally {
-			session.close(); 
-		}
-    	return deleted;
-	}
-
-	public List<Role> getRolesAsList() {
-    	List<Role> roles = new ArrayList<Role>();
+	public List<Person> getPersonsAsList() {
+    	List<Person> persons = new ArrayList<Person>();
     	session = hibernateUtil.getSessionFactory().openSession();
     	try {
 	        transaction = session.beginTransaction();
 	        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-	        CriteriaQuery<Role> criteriaQuery = criteriaBuilder.createQuery(Role.class);
-	        Root<Role> root = criteriaQuery.from(Role.class);
+	        CriteriaQuery<Person> criteriaQuery = criteriaBuilder.createQuery(Person.class);
+	        Root<Person> root = criteriaQuery.from(Person.class);
 	        criteriaQuery.select(root);
-	        Query<Role> query = session.createQuery(criteriaQuery);
+	        Query<Person> query = session.createQuery(criteriaQuery);
 	        query.setCacheable(true);
-	        roles = query.getResultList();
+	        persons = query.getResultList();
 		} catch (HibernateException e) {
 			if (transaction!=null) transaction.rollback();
 			e.printStackTrace(); 
 		} finally {
 			session.close(); 
 		}
-    	return roles;
+    	return persons;
     }
 
-    public Role getRoleWithId(Integer roleId) {
+    public Person getPersonWithId(Integer personId) {
     	session = hibernateUtil.getSessionFactory().openSession();
-    	Role role = new Role();
+    	Person person = new Person();
 	    try {
-	        role = session.get(role.getClass(), roleId);
+	        person = session.get(person.getClass(), personId);
 		} catch (HibernateException e) {
 		    if (transaction!=null) {
 		    	transaction.rollback();
@@ -125,6 +87,6 @@ public class RoleServiceImpl implements RoleService {
 	    } finally {
 	        session.close(); 
 		}
-		return role;
+		return person;
     }
 }
