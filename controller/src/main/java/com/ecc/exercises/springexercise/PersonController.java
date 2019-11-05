@@ -41,6 +41,28 @@ public class PersonController {
 	public String createPerson(@Valid Person person, BindingResult result, Model model) {
     	personService.createPerson(person);
     	model.addAttribute("persons", personService.getPersonsAsList());
+    	return "redirect:" + person.getId() +"/person-information";
+	}
+
+	@GetMapping(value = "persons/{personId}/update-person")
+	public String showUpdatePersonForm(@PathVariable("personId") int personId, Model model) {
+    	Person person = personService.getPersonWithId(personId);
+    	model.addAttribute(person);
+    	return "persons/update-person-form";
+	}
+
+	@PostMapping(value = "persons/{personId}/update-person")
+	public String updatePerson(@Valid Person person, BindingResult result, @PathVariable("personId") int personId, Model model) {
+    	person.setId(personId);
+    	personService.updatePerson(person);
+    	model.addAttribute("persons", personService.getPersonsAsList());
     	return "redirect:";
+	}
+
+	@GetMapping(value = "persons/{personId}/person-information")
+	public String showPersonInformation(@PathVariable("personId") int personId, Model model) {
+    	Person person = personService.getPersonWithId(personId);
+    	model.addAttribute(person);
+    	return "persons/person-information";
 	}
 }

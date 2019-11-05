@@ -12,5 +12,7 @@ public interface PersonService {
 
 	public boolean createPerson(Object object);
 	public List<Person> getPersonsAsList();
+	public boolean updatePerson(Object object);
+	public Person getPersonWithId(Integer personId);
 		
 }

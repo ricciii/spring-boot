@@ -87,7 +87,7 @@ public class Contact extends BaseEntity {
 
   	public String toString() {
   		String string;
-  		string = "ID: " + super.getId() + " Type: " + type + " Contact Info: " + contact + "\n";
+  		string = type + ": " + contact + "\n";
   		return string;
   	}
 }

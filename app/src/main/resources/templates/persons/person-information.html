@@ -14,13 +14,13 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="">Home</a>
+            <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="persons/list">Person</a>
+            <a class="nav-link" href="#">Person</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="roles/list">Role</a>
+            <a class="nav-link" href="#">Role</a>
           </li>
         </ul>
       </div>
@@ -28,37 +28,48 @@
   </nav>
 </div>
 
-<div th:switch="${persons}" class="p-5">
-  <p><a th:href="@{/persons/create-person}">Add a new person</a></p>   
-  <h2 th:case="null">No persons yet!</h2>
-  <div th:case="*">
+<div th:object="${person}" class="p-5 container">   
+  <div>
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Address</th>
-          <th>Date Of Birth</th>
-          <th>GWA</th>
-          <th>Date Hired</th>
-          <th>Currently Employed</th>
-          <th colspan="2">Actions</th>
+          <th colspan="2">Person Information</th>
         </tr>
       </thead>
       <tbody>
-        <tr th:each="person : ${persons}">
+        <tr>
+          <td>ID</td>
           <td th:text="${person.id}"></td>
+        </tr>
+        <tr>
+          <td>Name</td>
           <td th:text="${person.name}"></td>
+        </tr>
+        <tr>
+          <td>Address</td>
           <td th:text="${person.address}"></td>
+        </tr>
+        <tr>
+          <td>Date of Birth</td>
           <td th:text="${person.dateOfBirth}"></td>
-          <td th:text="${person.gwa}"></td>
+        </tr>
+        <tr>
+          <td>Date Hired</td>
           <td th:text="${person.dateHired}"></td>
+        </tr>
+        <tr>
+          <td>GWA</td>
+          <td th:text="${person.gwa}"></td>
+        </tr>
+        <tr>
+          <td>Currently Employed</td>
           <td th:text="${person.currentlyEmployed}"></td>
-          <td><a th:href="@{/persons/__${person.id}__/person-information}">View</a></td>
-          <td><a th:href="@{/persons/__${person.id}__/delete-person}">Delete</a></td>
         </tr>
       </tbody>
     </table>
+  </div>
+  <div>
+    <p><a th:href="@{/persons/__${person.id}__/update-person}">Update</a></p>
   </div>      
 </div>
 

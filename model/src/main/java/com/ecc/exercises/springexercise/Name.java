@@ -71,7 +71,7 @@ public class Name {
 	public String toString() {
 		String string;
 		string = lastName + " " + firstName + " " + middleName;
-		if(suffix != null) {
+		if((suffix != null) && ("".equals(suffix))==false) {
 			string += ", " + suffix;
 		}
 		return string;

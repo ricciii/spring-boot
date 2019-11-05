@@ -53,6 +53,25 @@ public class PersonServiceImpl implements PersonService {
     	return created;
 	}
 
+	public boolean updatePerson(Object object) {
+		session = hibernateUtil.getSessionFactory().openSession();
+		boolean updated = false;
+		try {
+			transaction = session.beginTransaction();
+			session.update(object); 
+			transaction.commit();
+			updated = true;
+		} catch (HibernateException e) {
+			if (transaction!=null) {
+				transaction.rollback();
+			} 
+			e.printStackTrace();
+		} finally {
+			session.close(); 
+		}
+    	return updated;
+	}
+
 	public List<Person> getPersonsAsList() {
     	List<Person> persons = new ArrayList<Person>();
     	session = hibernateUtil.getSessionFactory().openSession();
