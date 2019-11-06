@@ -5,6 +5,7 @@ import com.ecc.exercises.springexercise.service.RoleService;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ import javax.validation.Valid;
 import org.springframework.validation.BindingResult;
 
 @Controller
-//@RequestMapping(value = "/roles")
+@RequestMapping(value = "/roles")
 public class RoleController {
 
 	private static final String UPDATE_ROLE_FORM = "";
@@ -27,43 +28,49 @@ public class RoleController {
 	@Autowired
 	RoleService roleService;
 
-	@GetMapping(value = "/roles")
+	@GetMapping(value = "")
 	public String listRoles(Model model) {
     	model.addAttribute("roles", roleService.getRolesAsList());
     	return "roles/roles-list";
 	}
 
-	@GetMapping(value = "roles/create-role")
+	@GetMapping(value = "/create-role")
 	public String showCreateRoleForm(Role role) {
     	return "roles/create-role-form";
 	}
 
-	@PostMapping(value = "roles/create-role")
+	@PostMapping(value = "/create-role")
 	public String createRole(@Valid Role role, BindingResult result, Model model) {
     	roleService.createRole(role);
-    	model.addAttribute("roles", roleService.getRolesAsList());
-    	return "redirect:";
+    	return "redirect:" + role.getId() + "/role-information";
 	}
 
-	@GetMapping(value = "roles/{roleId}/update-role")
+	@GetMapping(value = "/{roleId}/update-role")
 	public String showUpdateRoleForm(@PathVariable("roleId") int roleId, Model model) {
     	Role role = roleService.getRoleWithId(roleId);
     	model.addAttribute(role);
     	return "roles/update-role-form";
 	}
 
-	@PostMapping(value = "roles/{roleId}/update-role")
+	@PostMapping(value = "/{roleId}/update-role")
 	public String updateRole(@Valid Role role, BindingResult result, @PathVariable("roleId") int roleId, Model model) {
     	role.setId(roleId);
     	roleService.updateRole(role);
-    	model.addAttribute("roles", roleService.getRolesAsList());
-    	return "redirect:";
+    	return "redirect:/roles/" + role.getId() + "/role-information";
 	}
 
-	@GetMapping(value = "roles/{roleId}/delete-role")
-	public String deleteRole(@PathVariable("roleId") int roleId) {
+	@GetMapping(value = "/{roleId}/delete-role")
+	public String deleteRole(@PathVariable("roleId") int roleId, Model model) {
     	Role role = roleService.getRoleWithId(roleId);
     	roleService.deleteRole(role);
-    	return "redirect:";
+    	model.addAttribute("roles", roleService.getRolesAsList());
+    	return "redirect:/roles";
+	}
+
+	@GetMapping(value = "/{roleId}/role-information")
+	public String showRoleInformation(@PathVariable("roleId") int roleId, Model model) {
+    	Role role = roleService.getRoleWithId(roleId);
+    	model.addAttribute(role);
+    	return "roles/role-information";
 	}
 }

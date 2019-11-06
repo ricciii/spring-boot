@@ -13,6 +13,8 @@ import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,23 +25,9 @@ public class Contact extends BaseEntity {
 	@Column(name="contact", nullable=false)
 	private String contact;
 	
-	@Column(name="type", nullable=false) 
-	@Enumerated(EnumType.STRING)
+	@ManyToOne(targetEntity=ContactType.class)
+	@JoinColumn(name = "type_id")
 	private ContactType type; 
-
-	public enum ContactType {
-		MOBILE("Mobile"), LANDLINE("Landline"), EMAIL("Email");
-
-		private String string;
-
-		ContactType(String string) {
-			this.string = string;
-		}
-
-		public String getString() {
-			return string;
-		}
-	}
 
 	public Contact() {
 	

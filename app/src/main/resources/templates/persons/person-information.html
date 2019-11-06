@@ -14,13 +14,13 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Person</a>
+            <a class="nav-link" href="/persons">Person</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Role</a>
+            <a class="nav-link" href="/roles">Role</a>
           </li>
         </ul>
       </div>
@@ -33,7 +33,7 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th colspan="2">Person Information</th>
+          <th colspan="2">Basic Person Information</th>
         </tr>
       </thead>
       <tbody>
@@ -69,9 +69,49 @@
     </table>
   </div>
   <div>
-    <p><a th:href="@{/persons/__${person.id}__/update-person}">Update</a></p>
-  </div>      
+    <p><a th:href="@{/persons/__${person.id}__/update-person}" class="btn btn-primary">Update Basic Information</a></p>
+    <p><a th:href="@{/persons/__${person.id}__/delete-person}" class="btn btn-danger">Delete Person</a>
+  </div></p> 
+  <div class="row">
+    <div class="col-sm-6">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th colspan="4">Contact Information</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="contact : *{contacts}">
+            <td th:text="${contact.type}"></td>
+            <td th:text="${contact.contact}"></td>
+            <td><a th:href="@{/persons/__${person.id}__/person-information/__${contact.id}__/update-contact}">Update</a>
+            <td><a th:href="@{/persons/__${person.id}__/person-information/__${contact.id}__/delete-contact}">Delete</a>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <a th:href="@{/persons/__${person.id}__/add-contact}" class="btn btn-primary">Add Contact</a>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th colspan="2">Role Information</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="role : *{roles}">
+            <td th:text="${role.role}"></td>
+            <td><a th:href="@{/persons/__${person.id}__/person-information/__${role.id}__/delete-role}">Delete Role</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <a th:href="@{/persons/__${person.id}__/assign-role}" class="btn btn-primary">Assign Role</a>
+      </div> 
+    </div>  
+  </div> 
 </div>
-
 </body>
 </html>

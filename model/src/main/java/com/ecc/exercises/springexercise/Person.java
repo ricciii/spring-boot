@@ -51,15 +51,15 @@ public class Person extends BaseEntity implements Comparable<Person> {
 	private Boolean currentlyEmployed;
 	
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@OneToMany(fetch=FetchType.LAZY, cascade = { CascadeType.ALL }, targetEntity=Contact.class, orphanRemoval=true)
-	//@Fetch(FetchMode.JOIN)
+	@OneToMany(fetch=FetchType.EAGER, cascade = { CascadeType.ALL }, targetEntity=Contact.class, orphanRemoval=true)
+	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name="person_id")
 	@BatchSize(size=5)
 	private Set contacts;
 	
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@ManyToMany(fetch=FetchType.LAZY, cascade = { CascadeType.PERSIST,  CascadeType.MERGE }, targetEntity=Role.class)
-	//@Fetch(FetchMode.JOIN)
+	@ManyToMany(fetch=FetchType.EAGER, cascade = { CascadeType.PERSIST,  CascadeType.MERGE }, targetEntity=Role.class)
+	@Fetch(FetchMode.JOIN)
 	@BatchSize(size=5)
 	@JoinTable(name = "person_role", joinColumns = { @JoinColumn(name = "person_id") }, 
 		inverseJoinColumns = { @JoinColumn(name = "role_id") })

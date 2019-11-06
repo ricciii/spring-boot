@@ -23,6 +23,7 @@
 		<!-- List of XML mapping files -->
 		<mapping class="com.ecc.exercises.springexercise.model.Person"/>
 		<mapping class="com.ecc.exercises.springexercise.model.Contact"/>
+		<mapping class="com.ecc.exercises.springexercise.model.ContactType"/>
 		<mapping class="com.ecc.exercises.springexercise.model.Role"/>
 	</session-factory>
 </hibernate-configuration>

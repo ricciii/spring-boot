@@ -16,10 +16,10 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/persons">Person</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/roles">Role</a>
           </li>
         </ul>
@@ -27,31 +27,25 @@
     </div>
   </nav>
 </div>
-
-<div th:switch="${roles}" class="container p-5">
-  <p><a th:href="@{/roles/create-role}" class="btn btn-primary">Add Role</a></p>  
-  <h2 th:case="null">No roles yet!</h2>
-  <div th:case="*">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Role</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="role : ${roles}">
-          <td th:text="${role.id}"></td>
-          <td th:text="${role.role}"></td>
-          <td><a th:href="@{/roles/__${role.id}__/role-information}">View</a></td>
-          <!-- <td><a th:href="@{/roles/__${role.id}__/update-role}">Edit</a></td>
-          <td><a th:href="@{/roles/__${role.id}__/delete-role}">Delete</a></td> -->
-        </tr>
-      </tbody>
-    </table>
-  </div>      
+<div class="container p-5">
+  <h2>Create Contact Form</h2>
+  <form th:object="${contact}" method="post">
+    <div class="form-group">
+      <label for="role">Enter Contact Details:</label>
+      <div class="row">
+        <div class="col-sm-6">
+          <select th:field="*{type}" class="form-control">
+            <option th:each="type : ${types}" th:value="${type}"
+              th:text="${type}"></option>
+          </select>
+        </div>
+        <div class="col-sm-6">
+          <input type="text" th:field="*{contact}" class="form-control" placeholder="Contact Type Detail">
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
 </div>
-
 </body>
 </html>
