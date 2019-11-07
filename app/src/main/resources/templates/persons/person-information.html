@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Spring Exercise</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+  <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/persons">Person</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/roles">Role</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div th:object="${person}" class="p-5 container">
+  <div>
+    <p><a th:href="@{/persons/__${person.id}__/update-person}" class="btn btn-primary">Update Basic Information</a></p>
+  </div> 
+  <div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="2">Basic Person Information</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ID</td>
+          <td th:text="${person.id}"></td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td th:text="${person.name}"></td>
+        </tr>
+        <tr>
+          <td>Address</td>
+          <td th:text="${person.address}"></td>
+        </tr>
+        <tr>
+          <td>Date of Birth</td>
+          <td th:text="${person.dateOfBirth}"></td>
+        </tr>
+        <tr>
+          <td>Date Hired</td>
+          <td th:text="${person.dateHired}"></td>
+        </tr>
+        <tr>
+          <td>GWA</td>
+          <td th:text="${person.gwa}"></td>
+        </tr>
+        <tr>
+          <td>Currently Employed</td>
+          <td th:text="${person.currentlyEmployed}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div>
+        <p><a th:href="@{/persons/__${person.id}__/add-contact}" class="btn btn-primary">Add Contact</a></p>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th colspan="4">Contact Information</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="contact : *{contacts}">
+            <td th:text="${contact.type}"></td>
+            <td th:text="${contact.contact}"></td>
+            <td><a th:href="@{/persons/__${person.id}__/person-information/__${contact.id}__/delete-contact}">Delete</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-6">
+      <div>
+        <p><a th:href="@{/persons/__${person.id}__/assign-role}" class="btn btn-primary">Assign Role</a></p>
+      </div> 
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th colspan="2">Role Information</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="role : *{roles}">
+            <td th:text="${role.role}"></td>
+            <td><a th:href="@{/persons/__${person.id}__/person-information/__${role.id}__/delete-role}">Delete Role</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div> 
+  </div> 
+  <div>
+    <p><a th:href="@{/persons/__${person.id}__/delete-person}" class="btn btn-danger">Delete Person</a></p>
+  </div> 
+</div>
+</body>
+</html>
