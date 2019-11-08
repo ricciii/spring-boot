@@ -38,6 +38,7 @@
             <option th:each="role : ${roles}" th:value="${role.id}"
               th:text="${role}"></option>
           </select>
+          <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</span>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ecc.exercises.springexercise.model.Role;
+import com.ecc.exercises.springexercise.model.Person;
 import com.ecc.exercises.springexercise.util.HibernateUtil;
 
 import java.util.List;
@@ -34,12 +35,12 @@ public class RoleServiceImpl implements RoleService {
 		this.hibernateUtil = hibernateUtil;
 	}
 
-	public boolean createRole(Object object) {
+	public boolean createRole(Role role) {
 		session = hibernateUtil.getSessionFactory().openSession();
 		boolean created = false;
 		try {
 			transaction = session.beginTransaction();
-			session.save(object); 
+			session.save(role); 
 			transaction.commit();
 			created = true;
 		} catch (HibernateException e) {
@@ -53,12 +54,12 @@ public class RoleServiceImpl implements RoleService {
     	return created;
 	}
 
-	public boolean updateRole(Object object) {
+	public boolean updateRole(Role role) {
 		session = hibernateUtil.getSessionFactory().openSession();
 		boolean updated = false;
 		try {
 			transaction = session.beginTransaction();
-			session.update(object); 
+			session.update(role); 
 			transaction.commit();
 			updated = true;
 		} catch (HibernateException e) {
@@ -72,12 +73,13 @@ public class RoleServiceImpl implements RoleService {
     	return updated;
 	}
 
-	public boolean deleteRole(Object object) {
+	public boolean deleteRole(Role role) {
+		removeRoleFromPersons(role);
 		session = hibernateUtil.getSessionFactory().openSession();
 		boolean deleted = false;
 		try {
 			transaction = session.beginTransaction();
-			session.delete(object); 
+			session.delete(role); 
 			transaction.commit();
 			deleted = true;
 		} catch (HibernateException e) {
@@ -89,6 +91,35 @@ public class RoleServiceImpl implements RoleService {
 			session.close(); 
 		}
     	return deleted;
+	}
+
+	private boolean removeRoleFromPersons(Role role) {
+		boolean removed = false;
+    	session = hibernateUtil.getSessionFactory().openSession();
+	    try {
+	    	transaction = session.beginTransaction();
+	    	CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Person> criteriaQuery = criteriaBuilder.createQuery(Person.class);
+	        Root<Person> root = criteriaQuery.from(Person.class);
+	        criteriaQuery.select(root);
+	        Query<Person> query = session.createQuery(criteriaQuery);
+	        List<Person> persons = query.getResultList();
+	    	for (Person person : persons) {
+	    		person.getRoles().remove(role);
+	    	}
+		    transaction.commit();
+		    removed = true;
+		} catch (HibernateException e) {
+		    if (transaction!=null) {
+		    	transaction.rollback();
+		    }
+		    e.printStackTrace(); 
+	    } catch (Exception exception) {
+	    	System.out.println(exception);
+	    } finally {
+	        session.close(); 
+		}
+		return removed;
 	}
 
 	public List<Role> getRolesAsList() {

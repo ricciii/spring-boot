@@ -38,9 +38,11 @@
             <option th:each="type : ${types}" th:value="${type}"
               th:text="${type}"></option>
           </select>
+          <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Type Error</span>
         </div>
         <div class="col-sm-6">
           <input type="text" th:field="*{contact}" class="form-control" placeholder="Contact Type Detail">
+          <span th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}">Contact Error</span>
         </div>
       </div>
     </div>

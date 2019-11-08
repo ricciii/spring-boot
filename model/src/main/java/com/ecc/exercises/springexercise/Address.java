@@ -4,19 +4,31 @@ import java.time.LocalDate;
 import javax.persistence.Embeddable;
 import javax.persistence.Column;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Embeddable
 public class Address {
 	
+	@NotNull
+	@Size(min=1, message="Short")
+	@NotBlank(message="Required")
 	@Column(name="street", nullable=true)
 	private String street;
 	
+	@NotNull
+	@NotBlank(message="Required")
 	@Column(name="barangay", nullable=true)
 	private String barangay;
 	
+	@NotNull
+	@NotBlank(message="Required")
 	@Column(name="municipality", nullable=true)
 	private String municipality;
 	
+	@NotNull
+	@NotBlank(message="Required")
 	@Column(name="zip_code", nullable=true)
 	private String zipCode;
 

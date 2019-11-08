@@ -16,15 +16,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="contact")
 public class Contact extends BaseEntity {
 	
+	@NotNull
+	@NotBlank(message="Required")
 	@Column(name="contact", nullable=false)
 	private String contact;
 	
+	@NotNull(message="Required")
 	@ManyToOne(targetEntity=ContactType.class)
 	@JoinColumn(name = "type_id")
 	private ContactType type; 

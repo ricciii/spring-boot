@@ -40,6 +40,9 @@ public class PersonController {
 
 	@PostMapping(value = "/create-person")
 	public String createPerson(@Valid Person person, BindingResult result, Model model) {
+    	if(result.hasErrors()) {
+    		return "persons/create-person-form";
+    	}
     	personService.createPerson(person);
     	return "redirect:/persons/" + person.getId() + "/person-information";
 	}
@@ -53,6 +56,9 @@ public class PersonController {
 
 	@PostMapping(value = "/{personId}/update-person")
 	public String updatePerson(@Valid Person person, BindingResult result, @PathVariable("personId") int personId, Model model) {
+    	if(result.hasErrors()) {
+    		return "persons/update-person-form";
+    	}
     	person.setId(personId);
     	person.setContacts(this.person.getContacts());
     	person.setRoles(this.person.getRoles());

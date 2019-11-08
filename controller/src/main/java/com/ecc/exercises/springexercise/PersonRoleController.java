@@ -33,6 +33,7 @@ public class PersonRoleController {
 	PersonService personService;
 	@Autowired
 	RoleService roleService;
+    private Person person;
 
 	@ModelAttribute("roles")
 	public List<Role> populateAvailableRoles() {
@@ -52,14 +53,18 @@ public class PersonRoleController {
 	@GetMapping(value = "/assign-role")
 	public String showAssignRoleForm(Person person, ModelMap model) {
     	Role role = new Role();
-    	person.getRoles().add(role);
+    	this.person = person;
+        person.getRoles().add(role);
     	model.put("role", role);
     	return "persons/assign-role-form";
 	}
 
 	@PostMapping(value = "/assign-role")
 	public String assignRole(Person person, @Valid Role role, BindingResult result, ModelMap model) {
-    	person.getRoles().add(roleService.getRoleWithId(role.getId()));
+    	if(role.getId()==null) {
+            return "persons/assign-role-form";
+        }
+        person.getRoles().add(roleService.getRoleWithId(role.getId()));
     	personService.updatePerson(person);
     	return "redirect:/persons/" + person.getId() + "/person-information";
 	}

@@ -1,5 +1,6 @@
 package com.ecc.exercises.springexercise.model;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
@@ -10,7 +11,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
-// import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,30 +25,42 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.Valid;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="person")
 public class Person extends BaseEntity implements Comparable<Person> {
 	
+	@Valid
 	@Embedded
 	private Name name;
 	
+	@Valid
 	@Embedded
 	private Address address;
 	
-	@Type(type="calendar_date")
-	@Column(name="date_of_birth", nullable=true)
-	private Calendar dateOfBirth;
+	@NotNull(message="Required")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name="date_of_birth", nullable=false)
+	private LocalDate dateOfBirth;
 	
-	@Column(name="gwa", nullable=true)
+	@NotNull(message="Required")
+	@Column(name="gwa", nullable=false)
 	private float gwa;
 	
-	@Type(type="calendar_date")
-	@Column(name="date_hired", nullable=true)
-	private Calendar dateHired;
+	@NotNull(message="Required")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name="date_hired", nullable=false)
+	private LocalDate dateHired;
 	
-	@Column(name="currently_employed", nullable=true)
+	@NotNull(message="Required")
+	@Column(name="currently_employed", nullable=false)
 	private Boolean currentlyEmployed;
 	
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -70,16 +82,6 @@ public class Person extends BaseEntity implements Comparable<Person> {
 
 	}
 
-	public Person(Name name, Address address, Calendar dateOfBirth, float gwa, 
-   	Calendar dateHired, Boolean currentlyEmployed) {
-   		this.name = name;
-   		this.address = address;
-   		this.dateOfBirth = dateOfBirth;
-   		this.gwa = gwa;
-   		this.dateHired = dateHired;
-   		this.currentlyEmployed = currentlyEmployed;
-	}
-
 	public Name getName() {
 		return this.name;
 	}
@@ -88,7 +90,7 @@ public class Person extends BaseEntity implements Comparable<Person> {
 		return this.address;
 	}
 
-	public Calendar getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return this.dateOfBirth;
 	}
 
@@ -96,7 +98,7 @@ public class Person extends BaseEntity implements Comparable<Person> {
 		return this.gwa;
 	}
 
-	public Calendar getDateHired() {
+	public LocalDate getDateHired() {
 		return this.dateHired;
 	}
 
@@ -120,7 +122,7 @@ public class Person extends BaseEntity implements Comparable<Person> {
 		this.address = address;
 	}
 
-	public void setDateOfBirth(Calendar dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -128,7 +130,7 @@ public class Person extends BaseEntity implements Comparable<Person> {
 		this.gwa = gwa;
 	}
 
-	public void setDateHired(Calendar dateHired) {
+	public void setDateHired(LocalDate dateHired) {
 		this.dateHired = dateHired;
 	}
 
@@ -142,27 +144,6 @@ public class Person extends BaseEntity implements Comparable<Person> {
 
 	public void setRoles(Set roles) {
 		this.roles = roles;
-	}
-
-	@Override
-	public String toString() {
-		String string;
-		string = "ID: " + super.getId() + "\n"; 
-		string += "Name: " + name + "\n";
-		string += "Address: "+ address + "\n";
-		string += "Date Of Birth: " + dateOfBirth.get(Calendar.YEAR) + "-" + dateOfBirth.get(Calendar.MONTH) + "-" + dateOfBirth.get(Calendar.DATE) + "\n";
-		string += "GWA: " + gwa + "\n";
-		string += "Date Hired: " + dateHired.get(Calendar.YEAR) + "-" + dateHired.get(Calendar.MONTH) + "-" + dateHired.get(Calendar.DATE) + "\n";
-		string += "Currently Employed: " + currentlyEmployed + "\n";
-		string += "Contact Information: \n";
-        for(Object contact: contacts) {
-    		string += "--> " + contact;
-    	}
-		string += "Role Information: \n";
-        for(Object role: roles) {
-    		string += "--> " + role;
-    	}
-    	return string;
 	}
 
 	@Override

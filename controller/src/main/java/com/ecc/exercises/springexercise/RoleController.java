@@ -41,8 +41,11 @@ public class RoleController {
 
 	@PostMapping(value = "/create-role")
 	public String createRole(@Valid Role role, BindingResult result, Model model) {
+    	if(result.hasErrors()) {
+    		return "roles/create-role-form";
+    	}
     	roleService.createRole(role);
-    	return "redirect:" + role.getId() + "/role-information";
+    	return "redirect:/roles";
 	}
 
 	@GetMapping(value = "/{roleId}/update-role")
@@ -56,7 +59,7 @@ public class RoleController {
 	public String updateRole(@Valid Role role, BindingResult result, @PathVariable("roleId") int roleId, Model model) {
     	role.setId(roleId);
     	roleService.updateRole(role);
-    	return "redirect:/roles/" + role.getId() + "/role-information";
+    	return "redirect:/roles";
 	}
 
 	@GetMapping(value = "/{roleId}/delete-role")

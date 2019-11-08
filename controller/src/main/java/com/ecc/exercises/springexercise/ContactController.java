@@ -61,6 +61,9 @@ public class ContactController {
 
 	@PostMapping(value = "/add-contact")
 	public String addContact(Person person, @Valid Contact contact, BindingResult result, ModelMap model) {
+    	if(result.hasErrors()) {
+    		return "persons/add-contact-form";
+    	}
     	person.getContacts().add(contact);
     	personService.updatePerson(person);
     	return "redirect:/persons/" + person.getId() + "/person-information";

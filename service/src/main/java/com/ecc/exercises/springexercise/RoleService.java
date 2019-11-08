@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface RoleService {
 
-	public boolean createRole(Object object);
+	public boolean createRole(Role role);
 	public List<Role> getRolesAsList();
 	public Role getRoleWithId(Integer roleId);
-	public boolean updateRole(Object object);
-	public boolean deleteRole(Object object);
+	public boolean updateRole(Role role);
+	public boolean deleteRole(Role role);
 }

@@ -27,14 +27,13 @@
     </div>
   </nav>
 </div>
-
 <div class="container p-5">
   <h2>Create Role Form</h2>
-  <!-- <form action="#" th:action="@{roles/create-role}" th:object="${role}" method="post"> -->
   <form th:object="${role}" method="post">
     <div class="form-group">
-      <label for="role">Enter New Role:</label>
+      <label>Enter New Role:</label>
       <input type="text" th:field="*{role}" class="form-control" id="role" placeholder="Role Title (Example: Software Engineer)" name="role">
+      <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</span>
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
   </form>
