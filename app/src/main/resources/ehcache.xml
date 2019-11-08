@@ -1,0 +1,47 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true" 
+	maxBytesLocalHeap="50M" maxBytesLocalDisk="1G">
+	<defaultCache 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="FIFO">
+		<persistence strategy="localTempSwap"/>
+	</defaultCache>
+	<cache name="com.ecc.exercises.springexercise.model.Person" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="FIFO">
+		<persistence strategy="localTempSwap"/>
+	</cache>
+	<cache name="com.ecc.exercises.springexercise.model.Person.contacts" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="FIFO">
+		<persistence strategy="localTempSwap"/>
+	</cache>
+	<cache name="com.ecc.exercises.springexercise.model.Person.roles" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="FIFO">
+		<persistence strategy="localTempSwap"/>
+	</cache>
+	<cache name="com.ecc.exercises.springexercise.model.Contact" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="FIFO">
+		<persistence strategy="localTempSwap"/>
+	</cache>
+	<cache name="com.ecc.exercises.springexercise.model.Role" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="FIFO">
+		<persistence strategy="localTempSwap"/>
+	</cache>
+</ehcache>
