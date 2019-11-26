@@ -18,33 +18,30 @@ import javax.validation.constraints.NotBlank;
 public class Role extends BaseEntity {
 	
 	@NotBlank(message="Required")
-	@Column(name="role", nullable=false)
-	private String role;
+	@Column(name="name", nullable=false)
+	private String name;
 
 	public Role() {
 
 	}
 
-	public Role(String role) {
-		this.role=role;
-	}
-
-	public String getRole() {
-		return this.role;
+	public String getName() {
+		return this.name;
 	} 
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public boolean equals(Object obj) {
 		if (obj == null) 
 			return false;
-		if (!this.getClass().equals(obj.getClass())) 
+		if (!this.getClass().equals(obj.getClass())) {
 			return false;
+		}
 
 		Role obj2 = (Role) obj;
-		if((super.getId() == obj2.getId()) && (this.role.equals(obj2.getRole()))) {
+		if((super.getId() == obj2.getId()) && (this.name.equals(obj2.getName()))) {
 			return true;
 		}
 		return false;
@@ -52,13 +49,11 @@ public class Role extends BaseEntity {
    
 	public int hashCode() {
 		int tmp = 0;
-		tmp = (super.getId() + role).hashCode();
+		tmp = (super.getId() + this.name).hashCode();
 		return tmp;
   	}
 
   	public String toString() {
-  		String string;
-  		string = role;
-  		return string;
+  		return this.name;
   	}
 }

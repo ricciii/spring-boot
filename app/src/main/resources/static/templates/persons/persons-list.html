@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="mb-3">
+    <button class="btn btn-primary" onclick="window.location.href = '#!persons/new';">New Person</button>
+  </div>
+  <div class="card">
+    <div class="card-header">Person List</div>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Date Of Birth</th>
+            <th>GWA</th>
+            <th>Date Hired</th>
+            <th>Currently Employed</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="person in persons">
+            <td>{{$index+1}}</td>
+            <td>{{person.name.lastName}}, {{person.name.firstName}} {{person.name.suffix === 0 ? '' : person.name.suffix}} {{person.name.middleName}}</td>
+            <td>{{person.address.street}}, {{person.address.barangay}}, {{person.address.municipality}}, {{person.address.zipCode}}</td>
+            <td>{{person.dateOfBirth}}</td>
+            <td>{{person.gwa}}</td>
+            <td>{{person.dateHired}}</td>
+            <td>{{person.currentlyEmployed}}</td>
+            <td><button type="button" class="btn btn-primary" ng-click="viewPerson($index)">View</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,53 @@
+<div class="container mb-3">
+  <div class="mb-3">
+      <button class="btn btn-primary" ng-click="initPersonInfo()">Back</button>
+  </div>
+  <div class="card">
+    <div class="card-header">Add Contact Form</div>
+    <div class="card-body">
+      <form method="post">
+        <div class="form-group">
+          <label for="contact">Select Contact Type:</label>
+          <div class="row">
+            <div class="col-sm-6">
+              <select ng-model="contact.type" ng-options="type.name for type in types" class="form-control"></select>
+            </div>
+            <div class="col-sm-6">
+              <input type="text" ng-model="contact.info" class="form-control" placeholder="Contact Type Detail">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="addContact(contact)">Add</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+     <div class="clear-fix">
+       <div class="float-left">List of Current Contact Information</div>
+     </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Information</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="contact in contacts">
+            <td>{{$index+1}}</td>
+            <td>{{contact.type.name}}</td>
+            <td>{{contact.info}}</td>
+            <td><button type="button" class="btn btn-danger" ng-click="removeContact($index)">Remove</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -22,8 +22,12 @@
       <artifactId>util</artifactId>
     </dependency>
     <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>repository</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-ehcache</artifactId>
-    </dependency> 
+    </dependency>
   </dependencies>
 </project>

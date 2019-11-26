@@ -1,79 +1,75 @@
 package com.ecc.exercises.springexercise.controller;
 
 import com.ecc.exercises.springexercise.model.Role;
+import com.ecc.exercises.springexercise.model.dto.RoleDto;
 import com.ecc.exercises.springexercise.service.RoleService;
+import com.ecc.exercises.springexercise.util.EntityDtoConverter;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import javax.validation.Valid;
 
 import org.springframework.validation.BindingResult;
 
-@Controller
-@RequestMapping(value = "/roles")
+@RestController
+@CrossOrigin
+@RequestMapping(value = "/api/roles", produces="application/json")
 public class RoleController {
-
-	private static final String UPDATE_ROLE_FORM = "";
 
 	@Autowired
 	RoleService roleService;
+	
+	public RoleController(RoleService roleService) {
+		this.roleService = roleService;
+	}
 
 	@GetMapping(value = "")
-	public String listRoles(Model model) {
-    	model.addAttribute("roles", roleService.getRolesAsList());
-    	return "roles/roles-list";
+	public ResponseEntity<List<RoleDto>> getRolesList() {
+		return new ResponseEntity<>(roleService.getRolesAsList(), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/create-role")
-	public String showCreateRoleForm(Role role) {
-    	return "roles/create-role-form";
+	@GetMapping(value = "/{roleId}")
+	public ResponseEntity<RoleDto> getRole(@PathVariable("roleId") Integer roleId) {
+		return new ResponseEntity<RoleDto>(roleService.getRoleById(roleId), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/create-role")
-	public String createRole(@Valid Role role, BindingResult result, Model model) {
-    	if(result.hasErrors()) {
-    		return "roles/create-role-form";
-    	}
-    	roleService.createRole(role);
-    	return "redirect:/roles";
+	@DeleteMapping(value = "/{roleId}")
+	public ResponseEntity deleteRole(@PathVariable("roleId") Integer roleId) {
+		roleService.deleteRoleById(roleId);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/{roleId}/update-role")
-	public String showUpdateRoleForm(@PathVariable("roleId") int roleId, Model model) {
-    	Role role = roleService.getRoleWithId(roleId);
-    	model.addAttribute(role);
-    	return "roles/update-role-form";
+	@PostMapping(value="")
+	public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDto) {
+		return new ResponseEntity<RoleDto>(roleService.saveRole(roleDto), HttpStatus.CREATED);
 	}
 
-	@PostMapping(value = "/{roleId}/update-role")
-	public String updateRole(@Valid Role role, BindingResult result, @PathVariable("roleId") int roleId, Model model) {
-    	role.setId(roleId);
-    	roleService.updateRole(role);
-    	return "redirect:/roles";
+	@PatchMapping(value="/{roleId}")
+	public ResponseEntity<RoleDto> updateRole(@PathVariable("roleId") Integer roleId, @RequestBody RoleDto roleDto) {
+		roleDto.setId(roleId);
+		return new ResponseEntity<RoleDto>(roleService.saveRole(roleDto), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/{roleId}/delete-role")
-	public String deleteRole(@PathVariable("roleId") int roleId, Model model) {
-    	Role role = roleService.getRoleWithId(roleId);
-    	roleService.deleteRole(role);
-    	model.addAttribute("roles", roleService.getRolesAsList());
-    	return "redirect:/roles";
+	@GetMapping(value = "/pdf")
+	public ResponseEntity<Object> generateRolesReport(@RequestBody List<RoleDto> roleDtos) {
+		return new ResponseEntity<Object>(roleService.generateRolesReport(roleDtos), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/{roleId}/role-information")
-	public String showRoleInformation(@PathVariable("roleId") int roleId, Model model) {
-    	Role role = roleService.getRoleWithId(roleId);
-    	model.addAttribute(role);
-    	return "roles/role-information";
-	}
 }

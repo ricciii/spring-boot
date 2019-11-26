@@ -44,4 +44,11 @@
 		memoryStoreEvictionPolicy="FIFO">
 		<persistence strategy="localTempSwap"/>
 	</cache>
+	<cache name="com.ecc.exercises.springexercise.model.ContactType" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		memoryStoreEvictionPolicy="FIFO">
+		<persistence strategy="localTempSwap"/>
+	</cache>
 </ehcache>

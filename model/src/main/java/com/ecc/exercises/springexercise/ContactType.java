@@ -20,8 +20,8 @@ import javax.persistence.Table;
 @Table(name="contact_type")
 public class ContactType extends BaseEntity {
 	
-	@Column(name="type", nullable=false)
-	private String type;
+	@Column(name="name", nullable=false)
+	private String name;
 
 	public boolean equals(Object obj) {
 		if (obj == null) 
@@ -30,29 +30,29 @@ public class ContactType extends BaseEntity {
 			return false;
 
 		ContactType obj2 = (ContactType) obj;
-		if((super.getId() == obj2.getId()) && (this.type.equals(obj2.getType()))) {
+		if((super.getId() == obj2.getId()) && (this.name.equals(obj2.getName()))) {
 			return true;
 		}
 		return false;
    	}
 
-   	public String getType() {
-   		return this.type;
+   	public String getName() {
+   		return this.name;
    	}
 
-   	public void setType(String type) {
-   		this.type = type;
+   	public void setName(String name) {
+   		this.name = name;
    	}
    
 	public int hashCode() {
 		int tmp = 0;
-		tmp = (super.getId() + type).hashCode();
+		tmp = (super.getId() + name).hashCode();
 		return tmp;
   	}
 
   	public String toString() {
   		String string;
-  		string = type;
+  		string = name;
   		return string;
   	}
 }

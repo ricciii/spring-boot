@@ -79,10 +79,11 @@ public class Name {
 	@Override
 	public String toString() {
 		String string;
-		string = lastName + " " + firstName + " " + middleName;
+		string = lastName + ", " + firstName;
 		if((suffix != null) && ("".equals(suffix))==false) {
-			string += ", " + suffix;
+			string += " " + suffix;
 		}
+		string += " " + middleName;
 		return string;
 	}
 }

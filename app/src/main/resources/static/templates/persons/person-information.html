@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="mb-3">
+      <button class="btn btn-primary" onclick="window.location.href = '#!persons';">Back</button>
+  </div> 
+  <div class="card">
+    <div class="card-header">
+     <div class="clear-fix">
+       <div class="float-left mt-2">Basic Person Information</div>
+       <div class="float-right">
+         <button class="btn btn-primary ml-2" ng-click="generatePersonReport()">Generate PDF</button>
+       </div>
+       <div class="float-right">
+         <button class="btn btn-primary" ng-click="initUpdatePerson()">Update</button>
+       </div>
+     </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td>ID</td>
+            <td>{{person.id}}</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>{{person.name.lastName}}, {{person.name.firstName}} {{person.name.suffix === 0 ? '' : person.name.suffix}} {{person.name.middleName}}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>{{person.address.street}}, {{person.address.barangay}}, {{person.address.municipality}}, {{person.address.zipCode}}</td>
+          </tr>
+          <tr>
+            <td>Date of Birth</td>
+            <td>{{person.dateOfBirth}}</td>
+          </tr>
+          <tr>
+            <td>Date Hired</td>
+            <td>{{person.dateHired}}</td>
+          </tr>
+          <tr>
+            <td>GWA</td>
+            <td>{{person.gwa}}</td>
+          </tr>
+          <tr>
+            <td>Currently Employed</td>
+            <td>{{person.currentlyEmployed}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div> 
+  <div class="mt-3">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            <div class="clear-fix">
+              <div class="float-left mt-2">Contact Information</div>
+              <div class="float-right">
+                <button class="btn btn-primary" ng-click="initEditContacts()">Edit</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr ng-repeat="contact in person.contacts">
+                    <td>{{$index+1}}</td>
+                    <td>{{contact.type.name}}</td>
+                    <td>{{contact.info}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            <div class="clear-fix">
+              <div class="float-left mt-2">Assigned Roles</div>
+              <div class="float-right">
+                <button class="btn btn-primary" ng-click="initEditRoles()">Edit</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr ng-repeat="role in person.roles">
+                    <td>{{$index+1}}</td>
+                    <td>{{role.name}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <div class="mt-3">
+      <button class="btn btn-danger" ng-click="deletePerson()">Delete Person</button>
+  </div>
+</div>

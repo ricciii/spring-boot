@@ -5,7 +5,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.0.4.RELEASE</version>
-    <relativePath/> <!-- lookup parent from repository -->
+    <relativePath/>
   </parent>
   <groupId>com.ecc.exercises</groupId>
   <artifactId>spring-exercise</artifactId>
@@ -16,6 +16,9 @@
   
   <dependencyManagement>
     <dependencies> 
+
+      <!-- Project Modules -->
+      
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>model</artifactId>
@@ -37,6 +40,21 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>repository</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>system</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      
+      <!-- End of Project Modules -->
+      
+      <!-- Database -->
+
+      <dependency>
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
         <version>42.2.0</version>
@@ -46,21 +64,30 @@
          <artifactId>hibernate-core</artifactId>
          <version>5.4.6.Final</version>
       </dependency> 
+        <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-ehcache</artifactId>
+        <version>5.4.6.Final</version>
+      </dependency> 
+
+      <!-- End of Database -->
+
+      <!-- Unit Test -->
+      
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <version>5.3.1</version>
         <scope>test</scope>
       </dependency>
-        <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-ehcache</artifactId>
-        <version>5.4.6.Final</version>
-      </dependency> 
+
+      <!-- End of Unit Test -->
+    
     </dependencies>
   </dependencyManagement>
   
   <dependencies>
+
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
@@ -72,51 +99,61 @@
       <version>2.6.9</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
-    </dependency>
-    
+    <!-- Spring Dependencies -->
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-    
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
     </dependency>
+    <dependency> 
+      <groupId>org.springframework.boot</groupId> 
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <!-- <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-cache</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>javax.cache</groupId>
+        <artifactId>cache-api</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.ehcache</groupId>
+        <artifactId>ehcache</artifactId>
+        <version>3.7.1</version>
+    </dependency> -->
+   <!--  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency> -->
 
-    <!-- webjars -->
+     <!-- End of Spring Dependencies -->
+
+     <!-- Dependency for Testing -->
     <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>webjars-locator-core</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+        <version>2.1.6.RELEASE</version>
     </dependency>
     <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>jquery</artifactId>
-      <version>${webjars-jquery.version}</version>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <scope>test</scope>
+        <version>1.4.194</version>
     </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>jquery-ui</artifactId>
-      <version>${webjars-jquery-ui.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>bootstrap</artifactId>
-      <version>${webjars-bootstrap.version}</version>
-    </dependency>
-    <!-- end of webjars -->
+     <!-- End of Dependency for Testing -->
+
   </dependencies>
   
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
-    <webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
-    <webjars-jquery.version>2.2.4</webjars-jquery.version>
   </properties>
 
   <modules>  
@@ -125,5 +162,7 @@
     <module>service</module>
     <module>util</module>
     <module>controller</module>
+    <module>repository</module>
+    <module>system</module>
   </modules>
 </project>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <title>Spring Exercise</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/bootstrap.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.js"></script>
+  <script src="/app/app.js"></script>
+  <script src="/app/controller/ListPersonController.js"></script>
+  <script src="/app/controller/CreatePersonController.js"></script>
+  <script src="/app/controller/ViewPersonController.js"></script>
+  <script src="/app/controller/UpdatePersonController.js"></script>
+  <script src="/app/controller/EditRolesController.js"></script>
+  <script src="/app/controller/EditContactsController.js"></script>
+  <script src="/app/service/personService.js"></script>
+  <script src="/app/controller/RoleMainController.js"></script>
+  <script src="/app/service/roleService.js"></script>
+  <script src="/app/service/contactTypeService.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body ng-app="app">
+<div ng-include="'partials/navbar.html'"></div>  
+<div ng-view></div>
+<div ng-include="'partials/footer.html'"></div>
+</body>
+</html>

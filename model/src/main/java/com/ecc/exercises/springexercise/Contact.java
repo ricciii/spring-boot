@@ -24,39 +24,35 @@ import javax.validation.constraints.NotBlank;
 @Table(name="contact")
 public class Contact extends BaseEntity {
 	
-	@NotNull
-	@NotBlank(message="Required")
-	@Column(name="contact", nullable=false)
-	private String contact;
-	
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	@NotNull(message="Required")
 	@ManyToOne(targetEntity=ContactType.class)
 	@JoinColumn(name = "type_id")
 	private ContactType type; 
 
+	@NotNull
+	@NotBlank(message="Required")
+	@Column(name="info", nullable=false)
+	private String info;
+
 	public Contact() {
 	
-	}
-
-	public Contact(ContactType type, String contact) {
-		this.type = type;
-		this.contact = contact;
 	}
 
 	public ContactType getType() {
 		return this.type;
 	}
 
-	public String getContact() {
-		return this.contact;
+	public String getInfo() {
+		return this.info;
 	}
 
 	public void setType(ContactType type) {
 		this.type = type;
 	}
 
-	public void setContact(String contact) {
-		this.contact = contact;
+	public void setInfo(String info) {
+		this.info = info;
 	}
 
 	public boolean equals(Object obj) {
@@ -66,7 +62,7 @@ public class Contact extends BaseEntity {
 			return false;
 
 		Contact obj2 = (Contact) obj;
-		if((super.getId() == obj2.getId()) && (this.contact.equals(obj2.getContact()))) {
+		if((super.getId() == obj2.getId()) && (this.info.equals(obj2.getInfo()))) {
 			return true;
 		}
 		return false;
@@ -74,13 +70,13 @@ public class Contact extends BaseEntity {
    
 	public int hashCode() {
 		int tmp = 0;
-		tmp = (super.getId() + contact).hashCode();
+		tmp = (super.getId() + info).hashCode();
 		return tmp;
   	}
 
   	public String toString() {
   		String string;
-  		string = type + ": " + contact + "\n";
+  		string = type + ": " + info + "\n";
   		return string;
   	}
 }

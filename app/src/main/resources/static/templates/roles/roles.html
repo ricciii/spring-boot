@@ -1,0 +1,63 @@
+<div class="container">
+  
+  <!-- <div class="alert alert-success container" ng-show="showSuccess">
+    <strong>Success!</strong> {{ message }}
+  </div>
+  <div class="alert alert-danger container" ng-show="showError">
+    <strong>Error!</strong> {{ errorMessage }}
+  </div> -->
+
+  <div class="container mb-3">
+    <div class="card">
+      <div class="card-header" ng-show="showCreateForm">Create Role Form</div>
+      <div class="card-header" ng-show="showUpdateForm">Update Role Form</div>
+      <div class="card-body">
+        <form method="post">
+          <div class="form-group">
+            <label ng-show="showCreateForm">Enter New Role:</label>
+            <label ng-show="showUpdateForm">Update Role Information:</label>
+            <input type="text" class="form-control" ng-model="role.name" placeholder="Role Title (Example: Software Engineer)">
+          </div>
+          <button type="button" ng-click="addRole(role.name)" ng-show="showCreateForm" class="btn btn-primary">Create</button>
+          <div ng-show="showUpdateForm">
+            <button type="button" ng-click="updateRole()" class="btn btn-primary">Update</button>
+            <button type="button" ng-click="initPage()" class="btn btn-warning">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+       <div class="clear-fix">
+         <div class="float-left mt-2">List of Roles</div>
+         <div class="float-right">
+           <button class="btn btn-primary" ng-click="generateRolesReport()">Generate PDF</button>
+         </div>
+       </div>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Role</th>
+              <th colspan="2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="role in roles">
+              <td>{{$index+1}}</td>
+              <td>{{role.name}}</td>
+              <td><button type="button" class="btn btn-primary" ng-click="initUpdate($index)">Update</button></td>
+              <td><button type="button" class="btn btn-danger" ng-click="deleteRole($index)">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> 
+
+</div>

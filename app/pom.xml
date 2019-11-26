@@ -30,11 +30,14 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>controller</artifactId>
     </dependency>
-    <!-- <dependency>
-        <groupId>org.webjars</groupId>
-        <artifactId>bootstrap</artifactId>
-        <version>4.2.1</version>
-    </dependency> -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>repository</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>util</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
